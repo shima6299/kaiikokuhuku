@@ -93,6 +93,15 @@ document.querySelectorAll('[data-target]').forEach(button => {
 });
 document.querySelectorAll('.use-quest').forEach(button => {
   button.addEventListener('click', () => {
+    if (!button.dataset.points) {
+      byId('per-quest').value = '';
+      byId('per-quest').placeholder = 'リザルト画面の獲得pt';
+      byId('results').hidden = true;
+      byId('error').hidden = true;
+      byId('selection-status').textContent = `${button.dataset.name}を選びました。獲得ポイントは討究レベル・クエスト条件などで変わるため、リザルト画面の値を入力してください。`;
+      byId('per-quest').focus();
+      return;
+    }
     byId('per-quest').value = button.dataset.points;
     const success = calculate();
     byId('selection-status').textContent = `${button.dataset.name}の仮定値（${numberFormat.format(Number(button.dataset.points))} pt / 回）を反映しました。${success ? '' : '入力エラーを修正してください。'}`;
