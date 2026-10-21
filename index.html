@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="theme-color" content="#101c1c">
   <title>傀異研究ノート | サンブレイク 必要ポイント計算</title>
-  <link rel="stylesheet" href="style.css">
-  <script src="app.js" defer></script>
+  <link rel="stylesheet" href="style.css?v=20261021-2">
+  <script src="app.js?v=20261021-2" defer></script>
 </head>
 <body>
   <header class="header"><a class="brand" href="#"><span class="crest">研</span> 傀異研究ノート</a><span class="edition">SUNBREAK <span> / FIELD NOTES</span></span></header>
@@ -18,7 +18,7 @@
       <div class="hero-mark" aria-hidden="true"><div class="orbit o1"></div><div class="orbit o2"></div><div class="orbit o3"></div><span>傀<br>異</span><small>RESEARCH RECORD · ELGADO</small></div>
     </section>
 
-    <div class="notice"><span class="notice-icon">i</span><p><strong>このサイトは試算用です。</strong> 初期値とクエスト報酬は説明用の仮定値で、ゲーム内の確定データではありません。実際の必要ポイント・獲得ポイントに変更してご利用ください。「傀異克服」の討伐数ではなく、傀異研究レベル（1〜300）を計算します。</p></div>
+    <div class="notice"><span class="notice-icon">i</span><p><strong>必要ポイントはレベルから自動計算します。</strong> 現在レベルと目標レベルを入力してください。必要pt表の出典：<a href="https://macarongamemo.com/entry/mhrsb-anomaly_research" target="_blank" rel="noopener noreferrer">まかろんのゲームメモ ↗</a>。周回例の獲得ptは仮定値です。実際の報酬は討究レベルやクエスト条件で変わります。</p></div>
 
     <section class="calculator" aria-labelledby="calc-title">
       <div class="inputs panel">
@@ -33,14 +33,9 @@
           <div class="presets"><span>目標を選ぶ</span><button type="button" data-target="100">100</button><button type="button" data-target="200">200</button><button type="button" data-target="300">300</button></div>
           <label for="progress">現在レベル内で獲得済みのポイント <span class="optional">任意</span><div class="unit-input"><input id="progress" type="number" min="0" step="1" value="0" required><span>pt</span></div></label>
           <div class="divider"></div>
-          <label for="per-level">1レベル上げるのに必要なポイント<div class="unit-input"><input id="per-level" type="number" min="1" max="1000000" step="1" value="1000" required><span>pt / Lv.</span></div></label>
-          <p class="hint">初期値の1,000 ptは計算説明用の仮定です。レベルによる違いは下の詳細設定で入力できます。</p>
+          <p class="hint">1レベルごとの必要ポイントは内蔵のレベル別データから自動計算します。ポイントの手入力は不要です。</p>
           <label for="per-quest">1クエストの獲得ポイント<div class="unit-input"><input id="per-quest" type="number" min="1" max="10000000" step="1" value="600" required><span>pt / 回</span></div></label>
-          <details>
-            <summary>レベル別の必要ポイントを設定</summary>
-            <p class="hint" id="table-help">「出発レベル,次のレベルまでの必要pt」を1行ずつ入力。例：100,1200 はLv.100→101に1,200 pt。未指定レベルには上の共通値を使います。入力した値は公式データではありません。</p>
-            <textarea id="level-data" aria-label="レベル別の必要ポイント" aria-describedby="table-help" rows="5" placeholder="100,1200&#10;101,1250"></textarea>
-          </details>
+
           <p id="error" class="error" role="alert" hidden></p>
           <button class="calculate" type="submit">必要ポイントを計算 <span aria-hidden="true">↗</span></button>
         </form>
@@ -49,11 +44,11 @@
         <div class="result-top"><span class="section-label">YOUR RESEARCH PLAN</span><span class="badge">試算</span></div>
         <h2 id="result-title">目標までに必要なポイント</h2>
         <div id="results" aria-live="polite" aria-atomic="true">
-          <div class="total"><strong id="total">100,000</strong><span>pt</span></div>
+          <div class="total"><strong id="total">128,600</strong><span>pt</span></div>
           <div class="journey"><span id="from-label">Lv.100</span><div class="journey-line"><span></span></div><strong id="to-label">Lv.200</strong></div>
-          <div class="metrics"><div><span>上げるレベル</span><strong id="levels">100<small> Lv.</small></strong></div><div><span>クエスト周回数の目安</span><strong id="runs">167<small> 回</small></strong></div></div>
+          <div class="metrics"><div><span>上げるレベル</span><strong id="levels">100<small> Lv.</small></strong></div><div><span>クエスト周回数の目安</span><strong id="runs">215<small> 回</small></strong></div></div>
           <div class="result-note"><span aria-hidden="true">✧</span><p id="result-note">1回600 pt獲得する場合の目安です。端数は切り上げています。</p></div>
-          <p class="calculation-info" id="calculation-info">共通の必要pt × レベル差 − 獲得済みpt</p>
+          <p class="calculation-info" id="calculation-info">レベルごとの必要ptを自動で合計 − 獲得済みpt</p>
         </div>
         <div class="result-footer"><span aria-hidden="true">◇</span> 一狩りずつ、目標に近づこう。</div>
       </div>
@@ -74,8 +69,8 @@
       <p class="table-footnote">※ 上記の数値はゲーム内の報酬データではありません。獲得ポイントは討究レベル、参加条件、複数頭の構成や各種補正などで変動します。</p>
     </section>
 
-    <section class="guide"><div><div class="section-label">BEFORE YOU HUNT</div><h2>計算の見かた</h2></div><div><h3>「傀異研究レベル」を入力</h3><p>研究レベルの上限は300です。モンスターの「傀異克服」とは別の数値です。</p></div><div><h3>実測値で、より正確に</h3><p>必要ptはゲーム内で確認し、レベル別に設定できます。周回数は同じ報酬が続くと仮定した目安です。</p></div></section>
+    <section class="guide"><div><div class="section-label">BEFORE YOU HUNT</div><h2>計算の見かた</h2></div><div><h3>「傀異研究レベル」を入力</h3><p>研究レベルの上限は300です。モンスターの「傀異克服」とは別の数値です。</p></div><div><h3>レベル別の必要ptを自動計算</h3><p>各レベル帯の必要ポイントを合計します。獲得済みptは任意です。周回数は同じ報酬が続くと仮定した目安です。</p></div></section>
   </main>
-  <footer><a class="brand" href="#"><span class="crest">研</span> 傀異研究ノート</a><p>非公式ファンツール / CAPCOMとは関係ありません。<br>ゲーム内データの出典未確認のため、数値は試算用です。</p><span>HAPPY HUNTING.</span></footer>
+  <footer><a class="brand" href="#"><span class="crest">研</span> 傀異研究ノート</a><p>非公式ファンツール / CAPCOMとは関係ありません。<br>更新版：2026.10.21 / 必要pt自動計算対応</p><span>HAPPY HUNTING.</span></footer>
 </body>
 </html>
