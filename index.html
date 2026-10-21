@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#101c1c">
+  <title>傀異研究ノート | サンブレイク 必要ポイント計算</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <header class="header"><a class="brand" href="#"><span class="crest">研</span> 傀異研究ノート</a><span class="edition">SUNBREAK <span> / FIELD NOTES</span></span></header>
+  <main>
+    <section class="hero">
+      <div class="eyebrow"><span></span> MONSTER HUNTER RISE: SUNBREAK</div>
+      <h1>次の研究レベルへ。<br><span>狩りの計画を、ここから。</span></h1>
+      <p>現在の傀異研究レベルと目標を入力して、<br class="desktop">必要ポイントとクエスト周回数をシミュレーション。</p>
+      <div class="hero-mark" aria-hidden="true"><div class="orbit o1"></div><div class="orbit o2"></div><div class="orbit o3"></div><span>傀<br>異</span><small>RESEARCH RECORD · ELGADO</small></div>
+    </section>
+
+    <div class="notice"><span class="notice-icon">i</span><p><strong>このサイトは試算用です。</strong> 初期値とクエスト報酬は説明用の仮定値で、ゲーム内の確定データではありません。実際の必要ポイント・獲得ポイントに変更してご利用ください。「傀異克服」の討伐数ではなく、傀異研究レベル（1〜300）を計算します。</p></div>
+
+    <section class="calculator" aria-labelledby="calc-title">
+      <div class="inputs panel">
+        <div class="section-label">01 / SIMULATOR</div>
+        <h2 id="calc-title">研究の目標を設定</h2>
+        <form id="calculator" novalidate>
+          <div class="level-fields">
+            <label for="current">現在の研究レベル<div class="number-wrap"><span>Lv.</span><input id="current" type="number" min="1" max="300" step="1" value="100" required></div></label>
+            <span class="arrow" aria-hidden="true">→</span>
+            <label for="target">目標の研究レベル<div class="number-wrap"><span>Lv.</span><input id="target" type="number" min="1" max="300" step="1" value="200" required></div></label>
+          </div>
+          <div class="presets"><span>目標を選ぶ</span><button type="button" data-target="100">100</button><button type="button" data-target="200">200</button><button type="button" data-target="300">300</button></div>
+          <label for="progress">現在レベル内で獲得済みのポイント <span class="optional">任意</span><div class="unit-input"><input id="progress" type="number" min="0" step="1" value="0" required><span>pt</span></div></label>
+          <div class="divider"></div>
+          <label for="per-level">1レベル上げるのに必要なポイント<div class="unit-input"><input id="per-level" type="number" min="1" max="1000000" step="1" value="1000" required><span>pt / Lv.</span></div></label>
+          <p class="hint">初期値の1,000 ptは計算説明用の仮定です。レベルによる違いは下の詳細設定で入力できます。</p>
+          <label for="per-quest">1クエストの獲得ポイント<div class="unit-input"><input id="per-quest" type="number" min="1" max="10000000" step="1" value="600" required><span>pt / 回</span></div></label>
+          <details>
+            <summary>レベル別の必要ポイントを設定</summary>
+            <p class="hint" id="table-help">「出発レベル,次のレベルまでの必要pt」を1行ずつ入力。例：100,1200 はLv.100→101に1,200 pt。未指定レベルには上の共通値を使います。入力した値は公式データではありません。</p>
+            <textarea id="level-data" aria-label="レベル別の必要ポイント" aria-describedby="table-help" rows="5" placeholder="100,1200&#10;101,1250"></textarea>
+          </details>
+          <p id="error" class="error" role="alert" hidden></p>
+          <button class="calculate" type="submit">必要ポイントを計算 <span aria-hidden="true">↗</span></button>
+        </form>
+      </div>
+      <div class="result panel" aria-labelledby="result-title">
+        <div class="result-top"><span class="section-label">YOUR RESEARCH PLAN</span><span class="badge">試算</span></div>
+        <h2 id="result-title">目標までに必要なポイント</h2>
+        <div id="results" aria-live="polite" aria-atomic="true">
+          <div class="total"><strong id="total">100,000</strong><span>pt</span></div>
+          <div class="journey"><span id="from-label">Lv.100</span><div class="journey-line"><span></span></div><strong id="to-label">Lv.200</strong></div>
+          <div class="metrics"><div><span>上げるレベル</span><strong id="levels">100<small> Lv.</small></strong></div><div><span>クエスト周回数の目安</span><strong id="runs">167<small> 回</small></strong></div></div>
+          <div class="result-note"><span aria-hidden="true">✧</span><p id="result-note">1回600 pt獲得する場合の目安です。端数は切り上げています。</p></div>
+          <p class="calculation-info" id="calculation-info">共通の必要pt × レベル差 − 獲得済みpt</p>
+        </div>
+        <div class="result-footer"><span aria-hidden="true">◇</span> 一狩りずつ、目標に近づこう。</div>
+      </div>
+    </section>
+
+    <section class="quests" aria-labelledby="quests-title">
+      <div class="section-heading"><div><div class="section-label">02 / QUEST EXAMPLES</div><h2 id="quests-title">周回クエストの参考例</h2></div><span class="table-tag">数値は仮定の計算例</span></div>
+      <p class="section-description">主な周回対象を選ぶと、例の獲得ポイントを計算に反映します。実際のリザルト画面の獲得値に置き換えてください。</p>
+      <div class="quest-table-wrap"><table><caption class="sr-only">主なクエスト対象と仮定の獲得ポイント</caption><thead><tr><th scope="col">討究クエストの対象例</th><th scope="col">周回の特徴</th><th scope="col">仮定の獲得pt / 回</th><th scope="col"><span class="sr-only">計算に使う</span></th></tr></thead><tbody>
+        <tr><td><span class="monster-icon blue" aria-hidden="true">牙</span><div><strong>傀異化ディアブロス</strong><small>単体クエスト</small></div></td><td>相性のよい装備で周回</td><td><strong>400</strong> <span>pt</span></td><td><button type="button" class="use-quest" data-points="400" data-name="傀異化ディアブロス">使う ↗</button></td></tr>
+        <tr><td><span class="monster-icon red" aria-hidden="true">炎</span><div><strong>傀異化エスピナス亜種</strong><small>単体クエスト</small></div></td><td>慣れたモンスターを選択</td><td><strong>600</strong> <span>pt</span></td><td><button type="button" class="use-quest" data-points="600" data-name="傀異化エスピナス亜種">使う ↗</button></td></tr>
+        <tr><td><span class="monster-icon gold" aria-hidden="true">龍</span><div><strong>傀異克服バルファルク</strong><small>単体クエスト</small></div></td><td>高難度の周回対象</td><td><strong>800</strong> <span>pt</span></td><td><button type="button" class="use-quest" data-points="800" data-name="傀異克服バルファルク">使う ↗</button></td></tr>
+        <tr><td><span class="monster-icon violet" aria-hidden="true">蝕</span><div><strong>傀異克服シャガルマガラ</strong><small>単体クエスト</small></div></td><td>安定して狩れる場合に</td><td><strong>1,000</strong> <span>pt</span></td><td><button type="button" class="use-quest" data-points="1000" data-name="傀異克服シャガルマガラ">使う ↗</button></td></tr>
+      </tbody></table></div>
+      <p id="selection-status" class="hint" role="status"></p>
+      <p class="table-footnote">※ 上記の数値はゲーム内の報酬データではありません。獲得ポイントは討究レベル、参加条件、複数頭の構成や各種補正などで変動します。</p>
+    </section>
+
+    <section class="guide"><div><div class="section-label">BEFORE YOU HUNT</div><h2>計算の見かた</h2></div><div><h3>「傀異研究レベル」を入力</h3><p>研究レベルの上限は300です。モンスターの「傀異克服」とは別の数値です。</p></div><div><h3>実測値で、より正確に</h3><p>必要ptはゲーム内で確認し、レベル別に設定できます。周回数は同じ報酬が続くと仮定した目安です。</p></div></section>
+  </main>
+  <footer><a class="brand" href="#"><span class="crest">研</span> 傀異研究ノート</a><p>非公式ファンツール / CAPCOMとは関係ありません。<br>ゲーム内データの出典未確認のため、数値は試算用です。</p><span>HAPPY HUNTING.</span></footer>
+</body>
+</html>
